@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#playOrPauseWithSpace" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.symphony.controller.Controller">
+   <children>
+      <MenuBar fx:id="menuBar" layoutY="2.0" style="-fx-background-color: rgb(41,26,28);" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu fx:id="fileMenu" mnemonicParsing="false" style="-fx-text-fill: white;" text="File">
+            <items>
+              <MenuItem fx:id="addFile" mnemonicParsing="false" onAction="#addFile" text="Open Folder" />
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Options">
+            <items>
+              <MenuItem mnemonicParsing="false" text="clear Queue" onAction="#clearQueue"/>
+              <MenuItem  mnemonicParsing="false" text="clear Songs" onAction="#clearSongList"/>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.1792866082603254" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #ff7f50, #6a5acd);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+         <items>
+            <ListView fx:id="songList" maxWidth="400.0" minWidth="100.0" prefHeight="693.0" prefWidth="411.0">
+               <contextMenu>
+                  <ContextMenu fx:id="contextMenuOfSongList">
+                    <items>
+                      <MenuItem fx:id="playNowFromSongList" mnemonicParsing="false" text="Play Now" />
+                      <MenuItem fx:id="playNextFromSongList" mnemonicParsing="false" text="Play Next" />
+                      <MenuItem fx:id="addToQueue" mnemonicParsing="false" text="Queue" />
+                    </items>
+                  </ContextMenu>
+               </contextMenu>
+            </ListView>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TabPane prefHeight="673.0" prefWidth="396.0" style="-fx-background-color: linear-gradient(to bottom, #ff7f50, #6a5acd);" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <tabs>
+                      <Tab fx:id="playTab" text="Play">
+                           <content>
+                              <VBox alignment="CENTER" fillWidth="false" spacing="30.0" style="-fx-background-position: center; -fx-background-size: cover; -fx-background-repeat: no-repeat; -fx-background-color: linear-gradient(to bottom, #ff7f50, #6a5acd);">
+                                 <children>
+                                    <ImageView fx:id="albumArt" fitHeight="350.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true">
+<!--                                       <image>-->
+<!--                                          <Image url="@../Coding/Python/Learning/pythonProject/Album%20Art/Ariana%20Grande%20-%20No%20Tears%20Left%20To%20Cry.jpg" />-->
+<!--                                       </image>-->
+                                    </ImageView>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label fx:id="songTitle" textAlignment="CENTER" textFill="#fcfbfb">
+                                             <font>
+                                                <Font size="42.0" />
+                                             </font>
+                                             <effect>
+                                                <Glow level="1.0" />
+                                             </effect>
+                                          </Label>
+                                          <Label fx:id="songArtist" alignment="CENTER" text="Artist" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                             <effect>
+                                                <Glow level="1.0" />
+                                             </effect>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <ProgressBar fx:id="songProgressBar" prefHeight="15.0" prefWidth="376.0" progress="0.0" />
+                                    <HBox alignment="CENTER" spacing="30.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Button" visible="false" />
+                                          <Button mnemonicParsing="false" text="Button" visible="false" />
+                                          <Button fx:id="resetButton" alignment="CENTER" mnemonicParsing="false" onAction="#resetMedia" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgb(255,220,198);">
+                                             <graphic>
+                                                <ImageView fitHeight="30.0" fitWidth="30.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@./assets/reset.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip text="Reset" />
+                                             </tooltip>
+                                          </Button>
+                                          <Button fx:id="previousButton" mnemonicParsing="false" onAction="#previousMedia" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgb(255,220,198);">
+                                             <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@./assets/previous.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip text="Previous Song" />
+                                             </tooltip>
+                                          </Button>
+                                          <ToggleButton fx:id="playOrPauseButton" mnemonicParsing="false" onAction="#playOrPauseMedia" prefHeight="55.0" prefWidth="55.0" style="-fx-background-color: rgb(255,220,198);">
+                                             <graphic>
+                                                <ImageView fx:id="playOrPauseButtonImage" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@./assets/play.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></ToggleButton>
+                                          <Button fx:id="nextButton" mnemonicParsing="false" onAction="#nextMedia" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgb(255,220,198);">
+                                             <graphic>
+                                                <ImageView fitHeight="25.0" fitWidth="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@./assets/next.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                             <tooltip>
+                                                <Tooltip text="Next" />
+                                             </tooltip>
+                                          </Button>
+                                          <ComboBox fx:id="speedChangeBox" onAction="#changeSpeed" prefWidth="80.0" promptText="1.0x" style="-fx-background-color: rgb(255,220,198);">
+                                             <tooltip>
+                                                <Tooltip text="Play Speed" />
+                                             </tooltip>
+                                          </ComboBox>
+                                          <Slider fx:id="volumeSlider" blockIncrement="5.0" prefWidth="100.0" value="100.0">
+                                             <tooltip>
+                                                <Tooltip text="Volume" />
+                                             </tooltip>
+                                             <effect>
+                                                <Glow level="1.0" />
+                                             </effect>
+                                          </Slider>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                           <tooltip>
+                              <Tooltip text="Now Playing" />
+                           </tooltip>
+                      </Tab>
+                      <Tab text="Queue">
+                           <content>
+                              <ListView fx:id="queueList" prefHeight="200.0" prefWidth="200.0">
+                                 <contextMenu>
+                                    <ContextMenu fx:id="contextMenuOfQueueList">
+                                      <items>
+                                        <MenuItem fx:id="playFromQueueList" mnemonicParsing="false" text="Play" />
+                                        <MenuItem fx:id="removeItemFromQueueList" mnemonicParsing="false" text="Remove" />
+                                        <MenuItem fx:id="clearQueueList" mnemonicParsing="false" text="Clear Queue" />
+                                      </items>
+                                    </ContextMenu>
+                                 </contextMenu>
+                              </ListView>
+                           </content>
+                           <tooltip>
+                              <Tooltip text="Queue" />
+                           </tooltip>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </AnchorPane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
+
+
